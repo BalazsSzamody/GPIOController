@@ -31,7 +31,7 @@ extension GPIOControlling {
         return myGpio
     }
     
-    func switcher(_ gp: GPIO, closure: @escaping (Bool) -> Void) throws {
+    public func switcher(_ gp: GPIO, closure: @escaping (Bool) -> Void) throws {
         closure(gp.value == 0)
         gp.onFalling { (_) in
             closure(false)
@@ -42,14 +42,14 @@ extension GPIOControlling {
         }
     }
     
-    func blink(_ gp: GPIO, with timeInterval: TimeInterval = 0.5) {
+    public func blink(_ gp: GPIO, with timeInterval: TimeInterval = 0.5) {
         gp.value = 1
         Thread.sleep(forTimeInterval: timeInterval)
         gp.value = 0
         Thread.sleep(forTimeInterval: timeInterval)
     }
     
-    func deadline(_ semaphore: Semaphore? = nil, time timeInterval: TimeInterval? = nil, cleanUp closure: (() -> Void)? = nil) {
+    public func deadline(_ semaphore: Semaphore? = nil, time timeInterval: TimeInterval? = nil, cleanUp closure: (() -> Void)? = nil) {
         let defaultSemaphore = Semaphore()
         let endSemaphore = semaphore ?? defaultSemaphore
         
